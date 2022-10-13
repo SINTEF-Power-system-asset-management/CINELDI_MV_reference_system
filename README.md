@@ -32,6 +32,10 @@ Module for handling scenarios for the long-term development of load demand in di
 ### pandapower_read_csv.py
 Module for loading and setting up pandapower network object for the CINELDI reference grid based on input .csv files on the MATPOWER format.
 
+### prepare_reldata.py
+Script for preparing data for reliability analysis (load point data and component reliability data) 
+for the CINELDI MV reference system.
+
 ### process_grid_data.py
 Script for processing the CINELDI MV reference grid by adding charging susceptance based on standard line type information from Planleggingsbok for kraftnett and estimating line lengths. Also updating format of files to standard MATPOWER format.
 
