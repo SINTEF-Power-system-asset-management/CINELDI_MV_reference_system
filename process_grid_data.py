@@ -22,7 +22,7 @@ import pandapower_read_csv as ppcsv
 path_input = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/grid_data_input'
 
 #  Path of folder with processed grid data (outputs)
-path_output = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system'
+path_data_set = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system'
 
 # True if rateA (branch flow limit) is in p.u. and should be converted to units MVA 
 do_mult_rateA = True
@@ -49,19 +49,21 @@ filename_branch_extra = 'Cineldi124Bus_Branch_extra.csv'
 # Hard coding file names for CINELDI reference grid data (new naming)
 filename_branch_new = 'CINELDI_MV_reference_grid_base_branch.csv'    
 filename_bus_new = 'CINELDI_MV_reference_grid_base_bus.csv'
+filename_bus_extra_new = 'CINELDI_MV_reference_grid_base_bus_extra.csv'
 filename_branch_extra_new = 'CINELDI_MV_reference_grid_base_branch_extra.csv'
 filename_branch_pf_solution_new = 'CINELDI_MV_reference_grid_base_branch_pf_sol.csv'
 filename_Excel_new = 'CINELDI_MV_reference_grid_base.xls'
 
 # Constructing full paths of input and output files
-filename_line_types_fullpath = os.path.join(path_input,filename_line_types)
+filename_line_types_fullpath = os.path.join(path_data_set,filename_line_types)
 filename_branch_fullpath = os.path.join(path_input,filename_branch)    
 filename_bus_fullpath = os.path.join(path_input,filename_bus)
-filename_branch_out_fullpath = os.path.join(path_output,filename_branch_new)    
-filename_bus_out_fullpath = os.path.join(path_output,filename_bus_new)
-filename_branch_extra_out_fullpath = os.path.join(path_output,filename_branch_extra_new)
-filename_branch_pf_solution_new_fullpath = os.path.join(path_output,filename_branch_pf_solution_new)
-filename_Excel_out_fullpath = os.path.join(path_output,filename_Excel_new)
+filename_branch_out_fullpath = os.path.join(path_data_set,filename_branch_new)    
+filename_bus_out_fullpath = os.path.join(path_data_set,filename_bus_new)
+filename_bus_extra_out_fullpath = os.path.join(path_data_set,filename_bus_extra_new)
+filename_branch_extra_out_fullpath = os.path.join(path_data_set,filename_branch_extra_new)
+filename_branch_pf_solution_new_fullpath = os.path.join(path_data_set,filename_branch_pf_solution_new)
+filename_Excel_out_fullpath = os.path.join(path_data_set,filename_Excel_new)
 
 # %% Read input data
 
@@ -95,9 +97,9 @@ for i_branch in branch.index:
     baseKV = bus.loc[f_bus,'baseKV']
     I_max = round(rateA * baseMVA / baseKV  / math.sqrt(3) * 1000)
 
-    # Base impedance value (Ohm)
+    # Base impedance value (ohm)
     Zni = baseKV**2/baseMVA  
-    r_Ohm = r * Zni
+    r_ohm = r * Zni
 
     # Approximate the cable to be one of the standard cable types according to a given mapping
     ids_same_rating = line_type_data.index[line_type_data['Imax_A'] == I_max]
@@ -106,7 +108,7 @@ for i_branch in branch.index:
         id_line_type = ids_same_rating[0]        
     
     elif len(ids_same_rating) > 1:
-        line_type_R_over_X = line_type_data.loc[ids_same_rating,'R_Ohm_per_km'] / line_type_data.loc[ids_same_rating,'X_Ohm_per_km']            
+        line_type_R_over_X = line_type_data.loc[ids_same_rating,'R_ohm_per_km'] / line_type_data.loc[ids_same_rating,'X_ohm_per_km']            
         ids_same_R_over_X = line_type_R_over_X.index[round(line_type_R_over_X,2) == round(r/x,2)]
         if len(ids_same_R_over_X) == 1:
             id_line_type = ids_same_R_over_X[0]
@@ -126,8 +128,8 @@ for i_branch in branch.index:
     type_line = line_type_data.loc[id_line_type,'type']
 
     # Calculating length of cable
-    r_Ohm_per_km = line_type_data.loc[id_line_type,'R_Ohm_per_km']
-    length_km = r_Ohm / r_Ohm_per_km
+    r_ohm_per_km = line_type_data.loc[id_line_type,'R_ohm_per_km']
+    length_km = r_ohm / r_ohm_per_km
 
     # Finding charging susceptance from standard cable type data ("driftskapasitet", Cd, in μf_per_km)
     c_μf_per_km = line_type_data.loc[id_line_type,'Cd_nF_per_km'] / 1000
@@ -188,15 +190,25 @@ for col in branch_cols:
 
 branch.columns = branch_cols_new
 
+# %% Create additional bus data (with parameters for ZIP load model)
+
+bus_extra = pd.DataFrame(columns = ['bus_i', 'constant_impedance', 'constant_current', 'constant_power'])
+for idx_bus in bus.index:    
+    if bus.loc[idx_bus,'Pd'] > 0:
+        # As default data, specify a constant power load at each bus with a load point
+        bus_extra_newrow = pd.DataFrame(data = {'bus_i': [bus.loc[idx_bus,'bus_i']], 'constant_impedance': [0], 'constant_current': [0], 'constant_power': [1]})
+        bus_extra = pd.concat([bus_extra, bus_extra_newrow], axis=0)
+
 # %% Write the modified branch and bus data to .csv files
 
 branch.to_csv(filename_branch_out_fullpath, sep = ';', decimal = decimal_sep_out, index = False)
 bus.to_csv(filename_bus_out_fullpath, sep = ';', decimal = decimal_sep_out, index = False)
 branch_extra.to_csv(filename_branch_extra_out_fullpath, sep = ';', decimal = decimal_sep_out, index = False)
+bus_extra.to_csv(filename_bus_extra_out_fullpath, sep = ';', decimal = decimal_sep_out, index = False)
 
 # %% Do an extra round reading and writing to .csv to include power flow solution in data set (which is a rather awkward solution, I know...)
 
-net = ppcsv.read_net_from_csv(path_output, baseMVA=10, DiB_version=True)
+net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10, DiB_version=True)
 
 # Solve power flow equations and update voltage data in the bus matrix
 pp.runpp(net, init='results', algorithm='bfsw')
@@ -217,6 +229,7 @@ branch_pf_solution.to_csv(filename_branch_pf_solution_new_fullpath, sep = ';', d
 
 with pd.ExcelWriter(filename_Excel_out_fullpath) as writer:  
     bus.to_excel(writer, sheet_name='bus', index = False)
+    bus_extra.to_excel(writer, sheet_name='bus_extra', index = False)
     branch.to_excel(writer, sheet_name='branch', index = False)
     branch_extra.to_excel(writer, sheet_name='branch_extra', index = False)
     branch_pf_solution.to_excel(writer, sheet_name='branch_pf_solution', index = False)

@@ -86,7 +86,7 @@ for i_trafo in range(len(trafonrs_unik)):
         finaltable.iloc[i_trafo,i_cat_tab] = data_trafo_andel[i_cat]
 
 # %% Translate customer types from Norwegian to English
-cat_translate = {'Husholdning': 'residential', 'Jordbruk': 'agricultural', 'Offentlig virksomhet':'public', 
+cat_translate = {'Husholdning': 'residential', 'Jordbruk': 'agriculture', 'Offentlig virksomhet':'public', 
     'Industri':'industry', 'Handel og tjenester':'commercial', 'Industri med eldrevne prosesser': 'energy-intensive industries'}
 cats_Norwegian = finaltable.columns.to_list()
 cats_English = []

@@ -187,18 +187,18 @@ def read_net_from_csv(folder, baseMVA=10, DiB_version = True):
         base_kV = s_base_kV[f_bus]
         max_i_ka = rateA / base_kV  / math.sqrt(3)
 
-        # Base impedance value (Ohm)
+        # Base impedance value (ohm)
         Zni = base_kV**2/baseMVA  
 
-        # pandapower assumes impedance to be given in Ohm per km and in addition specifies line length in km;
-        # we give impedances in Ohm and set the length to 1
+        # pandapower assumes impedance to be given in ohm per km and in addition specifies line length in km;
+        # we give impedances in ohm and set the length to 1
         length_km = 1
 
-        # Converting from p.u. to Ohm
+        # Converting from p.u. to ohm
         r_ohm = r * Zni
         x_ohm = x * Zni
 
-        # Converting charging susceptance from p.u. to Ohm
+        # Converting charging susceptance from p.u. to ohm
         omega = math.pi * f_hz  # 1/s
         c_nf_per_km = b/Zni/omega*1e9/2
 

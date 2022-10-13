@@ -17,18 +17,18 @@ import load_scenarios as ls
 # %% Set up paths
 
 # Location of orignal load data set
-path_input             = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/load_data_input/'
+path_input = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/load_data_input/'
 
-# Location of (processed) data set for CINELDI MV reference syste,
-path_data_set         = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
+# Location of (processed) data set for CINELDI MV reference system
+path_data_set = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
 
 # Scenario file name 
 # (NB: Assuming that new loads are LECs that will be associated with primarily residential load time series)
 filename_scenario = 'scenario_LEC_only.csv'
 
-filename_residential_fullpath = os.path.join(path_data_set,'load_time_series_IDs_primarily_residential.csv')
-filename_irregular_fullpath = os.path.join(path_data_set,'load_time_series_IDs_irregular.csv')      
-filename_load_data_fullpath = os.path.join(path_data_set,'load_time_series_CINELDI_MV_reference_system.csv')
+filename_residential_fullpath = os.path.join(path_data_set,'time_series_IDs_primarily_residential.csv')
+filename_irregular_fullpath = os.path.join(path_data_set,'time_series_IDs_irregular.csv')      
+filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_reference_system.csv')
 filename_load_mapping_output_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
 
 # %% Read input data

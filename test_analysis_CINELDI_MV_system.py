@@ -4,14 +4,11 @@ Created on 2022-06-14
 
 @author: ivespe
 
-Test script for simple analyses using the CINELDI MV reference system. 
-
-TODO: creating an "extended" version of the CINELDI reference system (as opposed to the 
-"base" version representing the present-day distribution system) for a specific stage of a 
-load development scenario.
+Test script for simple power flow analyses by applying load development scenarios and 
+load time series to the CINELDI MV reference system. 
 """
 
-# %% Set-up for script
+# %% Dependencies
 
 import pandapower as pp
 import pandapower.plotting as pp_plotting
@@ -36,9 +33,9 @@ filename_scenario = 'scenario_LEC_only.csv'
 # (NB: Not included with the published version of the reference data set)
 filename_load_profiles_cs = 'load_profiles_charging_stations.csv'
 
-filename_residential_fullpath = os.path.join(path_data_set,'load_time_series_IDs_primarily_residential.csv')
-filename_irregular_fullpath = os.path.join(path_data_set,'load_time_series_IDs_irregular.csv')      
-filename_load_data_fullpath = os.path.join(path_data_set,'load_time_series_CINELDI_MV_reference_system.csv')
+filename_residential_fullpath = os.path.join(path_data_set,'time_series_IDs_primarily_residential.csv')
+filename_irregular_fullpath = os.path.join(path_data_set,'time_series_IDs_irregular.csv')      
+filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_reference_system.csv')
 filename_load_mapping_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
 filename_scenario_fullpath = os.path.join(path_data_set,filename_scenario)
 filename_load_profiles_cs_fullpath = os.path.join(path_data_set,filename_load_profiles_cs)
