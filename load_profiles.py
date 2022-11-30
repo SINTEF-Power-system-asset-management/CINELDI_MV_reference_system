@@ -92,7 +92,7 @@ class load_profiles(object):
         return profile_days
 
 
-    def map_rel_load_profiles(self, filename_load, filename_scenario, filename_load_mapping, filename_load_profiles_cs=None, repr_day=29*2+1 ):
+    def map_rel_load_profiles(self, filename_load, filename_scenario, filename_load_mapping, filename_load_profiles_cs=None, repr_days=[29*2+1] ):
         """ 
         Return relative load profiles mapped to existing and new load points in the network
 
@@ -101,7 +101,7 @@ class load_profiles(object):
                 filename_fullpath_scenario: Full path to file name defining load-development scenario
                 filename_load_mapping: Full path to file defining how load profiles are mapped onto buses of the grid model
                 filename_load_profiles_cs: Full path to file with charging station load profiles
-                repr_day: Index of the days of the year to extract load profiles for (1-indexed);
+                repr_days: List with indices of the days of the year to extract load profiles for (1-indexed);
                     (optional; default: 28 February)
 
             Outputs:
@@ -113,7 +113,7 @@ class load_profiles(object):
         """
 
         # Read load profiles (for representative days)
-        profile_repr_days = self.get_profile_days([repr_day])    
+        profile_repr_days = self.get_profile_days(repr_days)    
 
         # Read mapping between load IDs in the load data and bus IDs in the network    
         mapping_load_to_bus = pd.read_csv(filename_load_mapping, sep = ';')
