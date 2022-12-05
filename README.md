@@ -23,6 +23,9 @@ Code for calculating the share of load per customer type for each load time seri
 ### create_load_mapping.py
 Script for creating mapping between the 104 load time series (load IDs) in the load data set and bus IDs of the 124-bus CINELDI MV reference grid.
 
+# create_grid_with_load_snapshot.py
+Script for creating a version of the grid data set for a certain operating state, obtained for a "snapshot" for a given day and hour of the year from the load demand time series
+
 ### load_profiles.py
 Module for handling load profiles, i.e. time series for load demand (typically hourly).
 
