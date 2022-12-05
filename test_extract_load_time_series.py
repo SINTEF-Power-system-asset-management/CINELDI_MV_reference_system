@@ -4,7 +4,7 @@ Created on 2022-11-30
 
 @author: ivespe
 
-Script for extracting load time series in units kWh/h for existing load points in the CINELDI reference grid
+Script for extracting load time series in units MWh/h for existing load points in the CINELDI reference grid
 """
 
 # %% Dependencies
@@ -19,7 +19,7 @@ import pandapower_read_csv as ppcsv
 
 # Location of (processed) data set for CINELDI MV reference system
 # (to be replaced by your own local data folder)
-path_data_set         = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
+path_data_set = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
 
 # Scenario file name 
 # (NB: For the published version of the reference data set, it is assumed that new loads
@@ -30,7 +30,7 @@ filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_r
 filename_load_mapping_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
 filename_scenario_fullpath = os.path.join(path_data_set,filename_scenario)
 
-# %% Read pandapower network
+# %% Read grid data
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
@@ -46,9 +46,9 @@ repr_days = list(range(1,366))
 # the column index is the bus number (1-indexed) and the row index is the hour of the year (0-indexed)
 profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,None,repr_days)
 
-# %% Calculate load time series in units kW (or kWh/h)
+# %% Calculate load time series in units MW (or, equivalently, MWh/h)
 
-# Scale the normalized load time series by the peak load value for the load points in the grid data set (in units kW);
+# Scale the normalized load time series by the peak load value for the load points in the grid data set (in units MW);
 # the column index is the bus number (1-indexed) and the row index is the hour of the year (0-indexed)
 load_time_series_mapped = profiles_mapped.mul(net.load['p_mw'])
 

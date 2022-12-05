@@ -32,6 +32,9 @@ Module for handling scenarios for the long-term development of load demand in di
 ### pandapower_read_csv.py
 Module for loading and setting up pandapower network object for the CINELDI reference grid based on input .csv files on the MATPOWER format.
 
+### test_extract_load_time_series.py
+Script for extracting load time series in units MWh/h for existing load points in the CINELDI reference grid
+
 ### prepare_reldata.py
 Script for preparing data for reliability analysis (load point data and component reliability data) 
 for the CINELDI MV reference system.
