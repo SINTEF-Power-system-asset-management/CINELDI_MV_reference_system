@@ -1,5 +1,5 @@
 # CINELDI_MV_reference_system
-Code for processing and analysing a reference data set for a Norwegian medium voltage power distribution system (the CINELDI MV reference system). The reference data set is available with DOI:10.5281/zenodo.7133506.
+Code for processing and analysing a reference data set for a Norwegian medium voltage power distribution system (the CINELDI MV reference system). The reference data set is available with DOI:10.5281/zenodo.7703070. The data set is described in the following data article: I. B. Sperstad, O. B. Fosso, S. H. Jakobsen, A. O. Eggen, J. H. Evenstuen, and G. Kjølle, ‘Reference data set for a Norwegian medium voltage power distribution system’, Data in Brief, 109025, Mar. 2023, doi: 10.1016/j.dib.2023.109025.
 
 ## Installation
 The script is installed by cloning this repository to your own local machine.
@@ -23,7 +23,7 @@ Code for calculating the share of load per customer type for each load time seri
 ### create_load_mapping.py
 Script for creating mapping between the 104 load time series (load IDs) in the load data set and bus IDs of the 124-bus CINELDI MV reference grid.
 
-# create_grid_with_load_snapshot.py
+### create_grid_with_load_snapshot.py
 Script for creating a version of the grid data set for a certain operating state, obtained for a "snapshot" for a given day and hour of the year from the load demand time series
 
 ### load_profiles.py

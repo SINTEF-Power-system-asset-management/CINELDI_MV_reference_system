@@ -35,12 +35,15 @@ decimal_sep_out = '.'
 
 # Bus voltage maximum and minumum values 
 # (according to common Norwegian planning criterion for MV distribution grids)
-Vmin = 0.94
-Vmax = 1.06
+Vmin = 0.95
+Vmax = 1.05
 
 # Set file name variables (constants)
 filename_line_types = "distribution_line_types_in_reference_grid.csv"
-    
+
+# Installation year of distribution lines has been pre-processed separately from other (confidential) input data
+filename_installation_year = 'CINELDI_MV_reference_grid_branch_installation_year.csv'
+
 # Hard coding file names for CINELDI reference grid data (old naming)
 filename_branch = 'Cineldi124Bus_Branch.csv'    
 filename_bus = 'Cineldi124Bus_Busdata.csv'
@@ -56,6 +59,7 @@ filename_Excel_new = 'CINELDI_MV_reference_grid_base.xls'
 
 # Constructing full paths of input and output files
 filename_line_types_fullpath = os.path.join(path_data_set,filename_line_types)
+filename_installation_year_fullpath = os.path.join(path_input,filename_installation_year)
 filename_branch_fullpath = os.path.join(path_input,filename_branch)    
 filename_bus_fullpath = os.path.join(path_input,filename_bus)
 filename_branch_out_fullpath = os.path.join(path_data_set,filename_branch_new)    
@@ -73,6 +77,7 @@ line_type_data = pd.read_csv(filename_line_types_fullpath, sep=';')
 # Read grid data from .csv files
 branch = pd.read_csv(filename_branch_fullpath, sep=';', decimal=decimal_sep_in)    
 bus = pd.read_csv(filename_bus_fullpath, sep=';', decimal=decimal_sep_in)
+df_installation_year = pd.read_csv(filename_installation_year_fullpath, sep=';', decimal=decimal_sep_in)
 
 # %% Calculate branch susceptance (and branch length)
 
@@ -124,6 +129,9 @@ for i_branch in branch.index:
         # cable of negligible length (corresponding to the last entry in line_type_data)
         id_line_type = len(line_type_data.index)-1
 
+    # Installation year of line
+    installation_year = df_installation_year.loc[i_branch,'installation_year']
+
     # Identifier/name of the line type                    
     type_line = line_type_data.loc[id_line_type,'type']
 
@@ -147,7 +155,7 @@ for i_branch in branch.index:
     branch_extra.loc[i_branch,'length_km'] = length_km
     branch_extra.loc[i_branch,'type'] = type_line
     branch_extra.loc[i_branch,'location_type'] = 'semi-urban'
-    branch_extra.loc[i_branch,'installation_year'] = 2000
+    branch_extra.loc[i_branch,'installation_year'] = installation_year
 
 # %% Remove reserve column if present
 if 'reserve' in branch.columns:
