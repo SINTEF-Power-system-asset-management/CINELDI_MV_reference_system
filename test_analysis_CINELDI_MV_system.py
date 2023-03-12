@@ -66,12 +66,15 @@ print('Total load demand in the system assuming a peak load model: ' + str(net.r
 
 pp_plotting.pf_res_plotly(net)
 
-# %% Set up hourly normalized load time series for a representative day (28 February by default)
+# %% Set up hourly normalized load time series for a representative day 
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
 
+# List with indices of the days of the year to extract load profiles for (1-indexed; 28 February by default)
+repr_days = [31+28]
+
 # Get relative load profiles for representative days mapped to buses of the CINELDI test network
-profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,filename_load_profiles_cs_fullpath)
+profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,filename_load_profiles_cs_fullpath,repr_days)
 
 # %% Scale loads by normalized load time series and run power flow
 
