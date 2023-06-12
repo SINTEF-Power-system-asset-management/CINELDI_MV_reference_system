@@ -36,7 +36,13 @@ net = read_net_from_csv(path_data_set, baseMVA=10, DiB_version = True)
 # %% Initialize object for handling grid investments
 grid_inv_data = gdp.grid_investment(cable_data_filename_fullpath,reinf_strategy_filename_fullpath)
 
-# %% Calculate costs of installing a new branch
-branch_id = 4
-type_new = grid_inv_data.select_reinforcement(branch_id,net)
-inv_cost = grid_inv_data.calc_inv_cost_branch(net,branch_id,type_new,False)
+# %% Calculate costs of replacing overhead line from bus 5 to bus 72 by underground cable
+
+branch_ids = [branch_id for branch_id in range(4,23)]
+inv_costs = pd.Series(index=branch_ids)
+
+for branch_id in branch_ids:
+    type_new = grid_inv_data.select_reinforcement(branch_id,net)
+    inv_costs[branch_id] = grid_inv_data.calc_inv_cost_branch(net,branch_id,type_new)
+
+inv_cost_sum = inv_costs.sum()
