@@ -17,6 +17,8 @@ Running the script requires the following dependencies:
 
 ## Overview of code: 
 
+The following code files are found in the main branch. (Code on other branches is experimental and less likely to be stable.)
+
 ### calc_share_customer_type.py
 Code for calculating the share of load per customer type for each load time series in the load data set for the CINELDI MV reference system.
 
