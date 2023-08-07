@@ -29,16 +29,11 @@ path_data_set         = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
 # are LECs that will be associated with primarily residential load time series)
 filename_scenario = 'scenario_LEC_only.csv'
 
-# File name of 24-hour load time series (profiles) for charging stations
-# (NB: Not included with the published version of the reference data set)
-filename_load_profiles_cs = 'load_profiles_charging_stations.csv'
-
 filename_residential_fullpath = os.path.join(path_data_set,'time_series_IDs_primarily_residential.csv')
 filename_irregular_fullpath = os.path.join(path_data_set,'time_series_IDs_irregular.csv')      
 filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_reference_system.csv')
 filename_load_mapping_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
 filename_scenario_fullpath = os.path.join(path_data_set,filename_scenario)
-filename_load_profiles_cs_fullpath = os.path.join(path_data_set,filename_load_profiles_cs)
 
 # %% Read pandapower network
 
@@ -74,7 +69,7 @@ load_profiles = lp.load_profiles(filename_load_data_fullpath)
 repr_days = [31+28]
 
 # Get relative load profiles for representative days mapped to buses of the CINELDI test network
-profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,filename_load_profiles_cs_fullpath,repr_days)
+profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,repr_days)
 
 # %% Scale loads by normalized load time series and run power flow
 

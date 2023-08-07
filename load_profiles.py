@@ -92,7 +92,7 @@ class load_profiles(object):
         return profile_days
 
 
-    def map_rel_load_profiles(self, filename_load, filename_scenario, filename_load_mapping, filename_load_profiles_cs=None, repr_days=[29*2+1] ):
+    def map_rel_load_profiles(self, filename_load, filename_scenario, filename_load_mapping, repr_days=[29*2+1] ):
         """ 
         Return relative load profiles mapped to existing and new load points in the network
 
@@ -100,16 +100,12 @@ class load_profiles(object):
                 filename_load: Full path to load demand data file 
                 filename_scenario: Full path to file name defining load-development scenario
                 filename_load_mapping: Full path to file defining how load profiles are mapped onto buses of the grid model
-                filename_load_profiles_cs: Full path to file with charging station load profiles
                 repr_days: List with indices of the days of the year to extract load profiles for (1-indexed);
                     (optional; default: 28 February)
 
             Outputs:
                 mapped_load_profiles: DataFrame with relative load profile (unitless) for 
                     representative days; indices are time steps in days and columns are bus IDs
-
-            NB: Now charging station load profiles are added to the profiles mapped from the load data set (only including LECs);
-                this is not a very clean way of doing it, and probably this adding should be in a separate function
         """
 
         # Read load profiles (for representative days)
@@ -122,13 +118,6 @@ class load_profiles(object):
 
         # Mapped relative load profiles for existing loads in the network
         mapped_load_profiles = profile_repr_days.loc[:,load_IDs]
-
-        ## Add charging station load profiles (if included in scenario)
-        #bus_IDs_new_cs_loads, labels_cs_profiles = self.get_bus_IDs_new_cs_loads(filename_scenario)
-        #if len(bus_IDs_new_cs_loads) > 0:
-        #    profile_cs = self.get_cs_load_profiles(filename_load_profiles_cs,labels=labels_cs_profiles,n_days=1)
-        #    bus_IDs = bus_IDs + bus_IDs_new_cs_loads
-        #    mapped_load_profiles = pd.concat([mapped_load_profiles, profile_cs], axis = 1)
 
         # Identifying the profiles with bus in the network rather than load ID in the load data set
         mapped_load_profiles.columns = bus_IDs
