@@ -98,7 +98,7 @@ class load_profiles(object):
 
             Inputs:
                 filename_load: Full path to load demand data file 
-                filename_fullpath_scenario: Full path to file name defining load-development scenario
+                filename_scenario: Full path to file name defining load-development scenario
                 filename_load_mapping: Full path to file defining how load profiles are mapped onto buses of the grid model
                 filename_load_profiles_cs: Full path to file with charging station load profiles
                 repr_days: List with indices of the days of the year to extract load profiles for (1-indexed);
@@ -123,12 +123,12 @@ class load_profiles(object):
         # Mapped relative load profiles for existing loads in the network
         mapped_load_profiles = profile_repr_days.loc[:,load_IDs]
 
-        # Add charging station load profiles (if included in scenario)
-        bus_IDs_new_cs_loads, labels_cs_profiles = self.get_bus_IDs_new_cs_loads(filename_scenario)
-        if len(bus_IDs_new_cs_loads) > 0:
-            profile_cs = self.get_cs_load_profiles(filename_load_profiles_cs,labels=labels_cs_profiles,n_days=1)
-            bus_IDs = bus_IDs + bus_IDs_new_cs_loads
-            mapped_load_profiles = pd.concat([mapped_load_profiles, profile_cs], axis = 1)
+        ## Add charging station load profiles (if included in scenario)
+        #bus_IDs_new_cs_loads, labels_cs_profiles = self.get_bus_IDs_new_cs_loads(filename_scenario)
+        #if len(bus_IDs_new_cs_loads) > 0:
+        #    profile_cs = self.get_cs_load_profiles(filename_load_profiles_cs,labels=labels_cs_profiles,n_days=1)
+        #    bus_IDs = bus_IDs + bus_IDs_new_cs_loads
+        #    mapped_load_profiles = pd.concat([mapped_load_profiles, profile_cs], axis = 1)
 
         # Identifying the profiles with bus in the network rather than load ID in the load data set
         mapped_load_profiles.columns = bus_IDs
@@ -136,11 +136,45 @@ class load_profiles(object):
         return mapped_load_profiles
 
 
+    def map_cs_load_profiles(self,mapped_load_profiles,filename_scenario,filename_load_profiles_cs=None,n_days=1):
+        """ Add relative load profiles for charging stations to existing mapping of profiles to grid model
+
+            Inputs:   
+                mapped_load_profiles: DataFrame with relative load profile (unitless) for 
+                    representative days; indices are time steps in days and columns are bus IDs
+                filename_scenario: Full path to file name defining load-development scenario
+                filename_load_profiles_cs: Path of file name for load profiles for charging stations
+                    (Requires a .csv file with exactly 24 hours for each profile)
+                n_days: Number of days in the load profile to return 
+                    (duplicating the one profile in the input file)
+
+            Outputs:
+                mapped_load_profiles: DataFrame with relative load profile (unitless) for 
+                    representative days; indices are time steps in days and columns are bus IDs
+        """
+
+        # Check if charging stations are included in the scenario
+        bus_IDs_new_cs_loads, labels_cs_profiles = self.get_bus_IDs_new_cs_loads(filename_scenario)
+        if len(bus_IDs_new_cs_loads) > 0:
+            # Read charging station load profile from file
+            profile_cs = self.get_cs_load_profiles(filename_load_profiles_cs,labels=labels_cs_profiles,n_days=n_days)
+            
+            # Add bus numbers for charging stations to mapping
+            bus_IDs = mapped_load_profiles.columns.to_list()            
+            bus_IDs = bus_IDs + bus_IDs_new_cs_loads
+            
+            # Extend the mapping with new load points for charging stations
+            mapped_load_profiles = pd.concat([mapped_load_profiles, profile_cs], axis = 1)
+            mapped_load_profiles.columns = bus_IDs
+
+        return mapped_load_profiles
+    
+
     def get_cs_load_profiles(self,filename_full_cs_load,labels=None,n_days=1):
         """ Return relative load profiles for charging stations
 
             Inputs:    
-                filename_full_load: Path of file name for load profiles for charging stations
+                filename_load_profiles_cs: Full path of file name for load profiles for charging stations
                     (Requires a .csv file with exactly 24 hours for each profile)
                 labels: List of column headings (labels of the profiles) to return
                 n_days: Number of days in the load profile to return 

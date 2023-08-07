@@ -16,6 +16,7 @@ Running the script requires the following dependencies:
 
 
 ## Overview of code: 
+The following files are found in the main branch of the repository. In addition, the extended_reference_grids branch hosts experimental "extensions" (variants) of the reference grid.
 
 ### calc_share_customer_type.py
 Code for calculating the share of load per customer type for each load time series in the load data set for the CINELDI MV reference system.
@@ -49,6 +50,9 @@ Script for processing the CINELDI MV reference grid by adding charging susceptan
 Test script for simple power flow analyses by applying load development scenarios and 
 load time series to the CINELDI MV reference system.
 
+### test_analysis_CINELDI_MV_system.py
+Test script for mapping load time series to the grid model including additional load profiles for charging stations
+(not included with the published version of the reference data set; without this file, this script will crash). 
 
 ## License
 This program is free software: you can redistribute it and/or modify
@@ -67,7 +71,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # Authors
 Contributors: Iver Bakken Sperstad, Julie Helen Evenstuen, Espen Flo Bødal
 
-Copyright (C) 2022 SINTEF Energi AS
+Copyright (C) 2022-2023 SINTEF Energi AS
 
 ## Funding
 This work is funded by CINELDI - Centre for intelligent electricity distribution, an 8 year Research Centre under the FME-scheme (Centre for Environment-friendly Energy Research, 257626/E20). The authors gratefully acknowledge the financial support from the Research Council of Norway and the CINELDI partners.
