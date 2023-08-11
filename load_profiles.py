@@ -141,10 +141,10 @@ class load_profiles(object):
                 mapped_load_profiles: DataFrame with relative load profile (unitless) for 
                     representative days; indices are time steps in days and columns are bus IDs
         """
-
+ 
         # Check if charging stations are included in the scenario
         bus_IDs_new_cs_loads, labels_cs_profiles = self.get_bus_IDs_new_cs_loads(filename_scenario)
-        if len(bus_IDs_new_cs_loads) > 0:
+        if (len(bus_IDs_new_cs_loads) > 0)  & (filename_load_profiles_cs is not None):
             # Read charging station load profile from file
             profile_cs = self.get_cs_load_profiles(filename_load_profiles_cs,labels=labels_cs_profiles,n_days=n_days)
             
