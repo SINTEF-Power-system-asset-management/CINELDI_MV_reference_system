@@ -54,7 +54,7 @@ load_profiles = lp.load_profiles(filename_load_data_fullpath)
 repr_days = [31+28]
 
 # Get relative load profiles for representative days mapped to buses of the CINELDI test network
-profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,filename_load_profiles_cs_fullpath,repr_days)
+profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_mapping_fullpath,repr_days)
 
 # %% Add load profiles for charging stations to the mapping
 

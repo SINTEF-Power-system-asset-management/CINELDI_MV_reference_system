@@ -56,7 +56,7 @@ hour = 19
 
 # Get relative load profiles for representative days mapped to buses of the CINELDI test network;
 # the column index is the bus number (1-indexed) and the row index is the hour of the year (0-indexed)
-profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_data_fullpath,filename_scenario_fullpath,filename_load_mapping_fullpath,[day])
+profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_mapping_fullpath,[day])
 
 # %% Scale the load in the grid by the value of the normalized load time series
 

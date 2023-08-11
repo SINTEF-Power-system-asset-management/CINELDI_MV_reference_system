@@ -92,7 +92,7 @@ class load_profiles(object):
         return profile_days
 
 
-    def map_rel_load_profiles(self, filename_load, filename_scenario, filename_load_mapping, repr_days=[29*2+1] ):
+    def map_rel_load_profiles(self, filename_load_mapping, repr_days=[29*2+1] ):
         """ 
         Return relative load profiles mapped to existing and new load points in the network
 
