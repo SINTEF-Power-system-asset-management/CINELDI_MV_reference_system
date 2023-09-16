@@ -30,16 +30,8 @@ import numpy as np
 # (to be replaced by your own local data folder)
 path_data_set         = 'C:/Users/ivespe/Data_sets/CINELDI_MV_reference_system/'
 
-# Scenario file name 
-# (NB: For the published version of the reference data set, it is assumed that new loads
-# are LECs that will be associated with primarily residential load time series)
-filename_scenario = 'scenario_LEC_only.csv'
-
-filename_residential_fullpath = os.path.join(path_data_set,'time_series_IDs_primarily_residential.csv')
-filename_irregular_fullpath = os.path.join(path_data_set,'time_series_IDs_irregular.csv')      
 filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_reference_system.csv')
 filename_load_mapping_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
-filename_scenario_fullpath = os.path.join(path_data_set,filename_scenario)
 
 # Subset of load buses to consider in the grid area, considering the area at the end of the main radial in the grid
 bus_i_subset = [90, 91, 92, 96]
