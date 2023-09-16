@@ -4,7 +4,7 @@ Created on 2023-07-14
 
 @author: ivespe
 
-Intro script for Exercise 2 ("Load modelling to evaluate the need for flexibility") 
+Intro script for Exercise 2 ("Load analysis to evaluate the need for flexibility") 
 in specialization course module "Flexibility in power grid operation and planning" 
 at NTNU (TET4565/TET4575) 
 
