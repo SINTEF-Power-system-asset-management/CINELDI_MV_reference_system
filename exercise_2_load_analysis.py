@@ -50,18 +50,19 @@ i_time_series_new_load = 90
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
-# %% Set up hourly normalized load time series for a representative day (task 2; this code is provided to the students)
+# %% Extract hourly load time series for a full year for all the load points in the CINELDI reference system
+# (this code is made available for solving task 3)
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
 
 # Get all the days of the year
 repr_days = list(range(1,366))
 
-# Get relative load profiles for representative days mapped to buses of the CINELDI test network;
+# Get normalized load profiles for representative days mapped to buses of the CINELDI reference grid;
 # the column index is the bus number (1-indexed) and the row index is the hour of the year (0-indexed)
 profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_mapping_fullpath,repr_days)
 
-# Retrieve load time series for new load to be added to the area
+# Retrieve normalized load time series for new load to be added to the area
 new_load_profiles = load_profiles.get_profile_days(repr_days)
 new_load_time_series = new_load_profiles[i_time_series_new_load]*P_max_new
 
