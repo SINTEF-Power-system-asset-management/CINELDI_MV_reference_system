@@ -1,2 +1,2 @@
-﻿id,Battery_Capacity,Battery_Power,Battery_Charge_Efficiency,Battery_Discharge_Efficiency
+﻿id,Energy_capacity,Power_capacity,Charging_efficiency,Discharging_efficiency
 1,6.4,3.3,0.975,0.975
