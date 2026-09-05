@@ -1,0 +1,26 @@
+[project]
+name = "cineldi-mv-reference-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Iver Bakken Sperstad", email = "iver.bakken.sperstad@sintef.no" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "jupyter>=1.1.1",
+    "ipykernel>=7.3.0",
+    "jupytext>=1.19.5",
+    "numba>=0.67.0",
+    "igraph>=1.0.0",
+    "matplotlib>=3.11.1",
+    "pandapower>=3.5.4",
+    "plotly>=7.0.0",
+]
+
+[project.scripts]
+cineldi-mv-reference-system = "cineldi_mv_reference_system:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"

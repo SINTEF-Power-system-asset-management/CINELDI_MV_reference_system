@@ -1,18 +1,35 @@
 # CINELDI_MV_reference_system
-Code for processing and analysing a reference data set for a Norwegian medium voltage power distribution system (the CINELDI MV reference system). The reference data set is available with DOI:10.5281/zenodo.7703070. The data set is described in the following data article: I. B. Sperstad, O. B. Fosso, S. H. Jakobsen, A. O. Eggen, J. H. Evenstuen, and G. Kjølle, ‘Reference data set for a Norwegian medium voltage power distribution system’, Data in Brief, 109025, Mar. 2023, doi: 10.1016/j.dib.2023.109025.
+Code for processing and analysing a reference data set for a Norwegian medium voltage power distribution system (the CINELDI MV reference system). The reference data set is available with doi:[10.5281/zenodo.7703070](https://doi.org/10.5281/zenodo.7703070). The data set is described in the following data article: I. B. Sperstad, O. B. Fosso, S. H. Jakobsen, A. O. Eggen, J. H. Evenstuen, and G. Kjølle, ‘Reference data set for a Norwegian medium voltage power distribution system’, Data in Brief, 109025, Mar. 2023, doi:[10.1016/j.dib.2023.109025](https://doi.org/10.1016/j.dib.2023.109025).
 
-## Installation
-The script is installed by cloning this repository to your own local machine.
-Running the script requires the following dependencies:
+## Usage
+To install the code package, first download it to a local folder. The associated data set (doi:10.5281/zenodo.7703070) must also be downloaded to a local folder, and before the code is used, the path to this data folder must be specified in the code scripts.
 
-### Dependencies
-* Python 3
-* [numpy](https://numpy.org/)
-* [pandas](https://pandas.pydata.org/pandas-docs/stable/index.html#)
-* [scipy](https://scipy.org)
-* [matplotlib](https://matplotlib.org/)
-* [pandapower](https://www.pandapower.org/)
-* [xlwt](https://pypi.org/project/xlwt/) 
+To handle dependencies, [uv](https://docs.astral.sh/uv/) can be used for package management.
+
+If you have not already installed uv, you can do so by running:
+
+```bash
+pip install uv
+```
+
+Alternatively, uv can also be installed by running:
+
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Dependencies can then be installed by going to the local code folder and running:
+
+```bash
+uv sync
+```
+
+To run the code directly from the terminal, the the virtual environment that has been created can be activated by running:
+```bash
+.\.venv\Scripts\activate
+```
+
+Make sure the Python kernel for the virtual environment (`cineldi-mv-reference-system`) is selected before running the Jupyter Notebook. (If you are using VC Code, you may have to restart the app first.)
 
 
 ## Overview of code: 
@@ -50,9 +67,6 @@ Script for processing the CINELDI MV reference grid by adding charging susceptan
 Test script for simple power flow analyses by applying load development scenarios and 
 load time series to the CINELDI MV reference system.
 
-### test_analysis_CINELDI_MV_system.py
-Test script for mapping load time series to the grid model including additional load profiles for charging stations
-(not included with the published version of the reference data set; without this file, this script will crash). 
 
 ## License
 This program is free software: you can redistribute it and/or modify
