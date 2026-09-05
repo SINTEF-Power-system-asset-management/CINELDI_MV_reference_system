@@ -1,14 +1,25 @@
 # -*- coding: utf-8 -*-
-"""
-Created on 2022-06-14
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: title,-all
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: cineldi-mv-reference-system (3.14.6.final.0)
+#     language: python
+#     name: python3
+# ---
 
-@author: ivespe
+# %% [markdown]
+# # Test script for simple power flow analyses for the CINELDI MV reference system
 
-Test script for simple power flow analyses by applying load development scenarios and 
-load time series to the CINELDI MV reference system. 
-"""
-
-# %% Dependencies
+# %%
+# Dependencies
 
 import pandapower as pp
 import pandapower.plotting as pp_plotting
@@ -18,7 +29,8 @@ import load_scenarios as ls
 import load_profiles as lp
 import pandapower_read_csv as ppcsv
 
-# %% Define input data
+# %%
+# Define input data
 
 # Location of (processed) data set for CINELDI MV reference system
 # (to be replaced by your own local data folder)
@@ -35,33 +47,39 @@ filename_load_data_fullpath = os.path.join(path_data_set,'load_data_CINELDI_MV_r
 filename_load_mapping_fullpath = os.path.join(path_data_set,'mapping_loads_to_CINELDI_MV_reference_grid.csv')
 filename_scenario_fullpath = os.path.join(path_data_set,filename_scenario)
 
-# %% Read pandapower network
+# %%
+# Read pandapower network
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
-# %% Read scenario data
+# %%
+# Read scenario data
 
 scen = ls.read_scenario_from_csv(path_data_set,filename_point_load = filename_scenario)
 
-# %% Apply scenario data to network
+# %%
+# Apply scenario data to network
 
 # Year in the analysis horizon relative to the reference year (2021)
 year_rel = 7
 
 ls.apply_scenario_to_net(net,scen,year_rel)
 
-# %% Test running power flow with a peak load model
+# %%
+# Test running power flow with a peak load model
 # (i.e., all loads are assumed to be at their annual peak load simultaneously)
 
 pp.runpp(net,init='results',algorithm='bfsw')
 
 print('Total load demand in the system assuming a peak load model: ' + str(net.res_load['p_mw'].sum()) + ' MW')
 
-# %% Plot results of power flow calculations
+# %%
+# Plot results of power flow calculations
 
 pp_plotting.pf_res_plotly(net)
 
-# %% Set up hourly normalized load time series for a representative day 
+# %%
+# Set up hourly normalized load time series for a representative day
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
 
@@ -71,7 +89,8 @@ repr_days = [31+28]
 # Get relative load profiles for representative days mapped to buses of the CINELDI test network
 profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_mapping_fullpath,repr_days)
 
-# %% Scale loads by normalized load time series and run power flow
+# %%
+# Scale loads by normalized load time series and run power flow
 
 # Which hour of the representative day to investigate (0-indexed). By default investigate the peak-load hour of February 28. 
 # (NB: It is necessary to reload the pandapower network and reapply the scenario data before investigating another value of t)
@@ -84,7 +103,8 @@ pp.runpp(net,init='results',algorithm='bfsw')
 
 print('Total load demand in the system assuming a time-varying load model with a representative day: ' + str(net.res_load['p_mw'].sum()) + ' MW')
 
-# %% Plot power flow solution for time-varying load model
+# %%
+# Plot power flow solution for time-varying load model
 
 pp_plotting.pf_res_plotly(net)
 # %%
