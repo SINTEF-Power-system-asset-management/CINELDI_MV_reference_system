@@ -1,0 +1,8 @@
+.venv/
+.ipynb_checkpoints/
+_pycache_/
+__pycache__/
+.pytest_cache/
+.pyc
+__init__.py
+*.html
