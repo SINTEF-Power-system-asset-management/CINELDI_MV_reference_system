@@ -1,13 +1,30 @@
-"""
-Created on 2024-08-10
+# -*- coding: utf-8 -*-
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: title,-all
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: cineldi-mv-reference-system (3.14.6.final.0)
+#     language: python
+#     name: python3
+# ---
 
-@author: ivespe, merkebud
+# %% [markdown]
+# # Script for Exercise 1 ("Modelling flexibility resources")
+#
+# Script for Exercise 1 ("Modelling flexibility resources") in specialization 
+# course module "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575).
+# It involves a model of an Electric Water Heater (EWH) as a flexibility resource. 
 
-Script for Exercise 1 ("Modelling flexibility resources") in specialization 
-course module "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
-"""
 
-# %% Define dependencies and EWH model function 
+# %%
+# Define dependencies and EWH model function 
 
 from math import exp
 import matplotlib.pyplot as plt
@@ -72,7 +89,8 @@ def make_load_profile_ewh(time_steps,P,T,S,T_a,C,R,T_min,T_max,t_act,S_act):
 
     return P_list, T_list, S_list
 
-# %% Initialize Electric Water Heater model
+# %%
+# Initialize Electric Water Heater model
 
 #Rated power of EWH in kW
 P_m = 2
@@ -128,7 +146,8 @@ P_list_all = np.zeros(time_steps)
 # i.e., the expected load demand without flexibility activation
 P_list_base_all = np.zeros(time_steps)
 
-# %% Run Electric Water Heater model
+# %%
+# Run Electric Water Heater model
 
 # Loop over all the EWHs
 for i_EWH in range(N_EWH):
@@ -149,7 +168,8 @@ for i_EWH in range(N_EWH):
     P_list_all += np.array(P_list)
     P_list_base_all += np.array(P_list_base)
 
-#%% Plot results for from Electric Water Heater model
+# %%
+# Plot results for from Electric Water Heater model
 
 if N_EWH == 1:
     # If running model for a single Electric Water Heater
