@@ -1,5 +1,8 @@
-# CINELDI_MV_reference_system
+# CINELDI_MV_reference_system (flexibility course module branch)
 Code for processing and analysing a reference data set for a Norwegian medium voltage power distribution system (the CINELDI MV reference system). The reference data set is available with doi:[10.5281/zenodo.7703070](https://doi.org/10.5281/zenodo.7703070). The data set is described in the following data article: I. B. Sperstad, O. B. Fosso, S. H. Jakobsen, A. O. Eggen, J. H. Evenstuen, and G. Kjølle, ‘Reference data set for a Norwegian medium voltage power distribution system’, Data in Brief, 109025, Mar. 2023, doi:[10.1016/j.dib.2023.109025](https://doi.org/10.1016/j.dib.2023.109025).
+
+This branch of the code is used for the specialization course module "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575). In addition to the code base, it also includes scripts/notebooks for the exercises in the course module.
+
 
 ## Usage
 To install the code package, first download it to a local folder. The associated data set (doi:10.5281/zenodo.7703070) must also be downloaded to a local folder, and before the code is used, the path to this data folder must be specified in the code scripts.
@@ -30,6 +33,16 @@ To run the code directly from the terminal, the the virtual environment that has
 ```
 
 Make sure the Python kernel for the virtual environment (`cineldi-mv-reference-system`) is selected before running the Jupyter Notebook. (If you are using VC Code, you may have to restart the app first.)
+
+### Dependencies (for manual installation) 
+
+If you are not using uv but installing dependencies manually, install the following packages:
+* [numpy](https://numpy.org/)
+* [pandas](https://pandas.pydata.org/pandas-docs/stable/index.html#)
+* [scipy](https://scipy.org)
+* [matplotlib](https://matplotlib.org/)
+* [pandapower](https://www.pandapower.org/) (install using `pip pandapower["all"]`)
+* [xlwt](https://pypi.org/project/xlwt/) 
 
 
 ## Overview of code: 
@@ -83,9 +96,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Authors
-Contributors: Iver Bakken Sperstad, Julie Helen Evenstuen, Espen Flo Bødal
+Contributors: Iver Bakken Sperstad,  Merkebu Zenebe Degefa, Julie Helen Evenstuen, Espen Flo Bødal
 
-Copyright (C) 2022-2023 SINTEF Energi AS
+Copyright (C) 2022-2026 SINTEF Energi AS
 
 ## Funding
-This work is funded by CINELDI - Centre for intelligent electricity distribution, an 8 year Research Centre under the FME-scheme (Centre for Environment-friendly Energy Research, 257626/E20). The authors gratefully acknowledge the financial support from the Research Council of Norway and the CINELDI partners.
+This work was funded by CINELDI - Centre for intelligent electricity distribution (2016-2024, grant no. 257626/E20) and SecurEL – Secure, resilient, and sustainable electricity distribution grids (2025-2032, grant no. 350219), Research Centres under the FME scheme (Centre for Environment-friendly Energy Research). The authors gratefully acknowledge the financial support from the Research Council of Norway and the CINELDI and SecurEL partners.
