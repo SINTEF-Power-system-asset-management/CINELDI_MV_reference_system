@@ -16,7 +16,7 @@
 # ---
 
 # %% [markdown]
-# # Script for Exercise 2 ("Modelling flexibility resources")
+# # Script for Exercise 2 ("Load analysis to evaluate the need for flexibility")
 #
 # Intro script for Exercise 2 in specialization course module 
 # "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
