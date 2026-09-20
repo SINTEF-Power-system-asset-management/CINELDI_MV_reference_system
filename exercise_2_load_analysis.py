@@ -1,16 +1,29 @@
 # -*- coding: utf-8 -*-
-"""
-Created on 2023-07-14
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: title,-all
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: cineldi-mv-reference-system (3.14.6.final.0)
+#     language: python
+#     name: python3
+# ---
 
-@author: ivespe
+# %% [markdown]
+# # Script for Exercise 2 ("Modelling flexibility resources")
+#
+# Intro script for Exercise 2 in specialization course module 
+# "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
 
-Intro script for Exercise 2 ("Load analysis to evaluate the need for flexibility") 
-in specialization course module "Flexibility in power grid operation and planning" 
-at NTNU (TET4565/TET4575) 
 
-"""
-
-# %% Dependencies
+# %%
+# Dependencies
 
 import pandapower as pp
 import pandapower.plotting as pp_plotting
@@ -24,7 +37,8 @@ import matplotlib as mpl
 import numpy as np
 
 
-# %% Define input data
+# %%
+# Define input data
 
 # Location of (processed) data set for CINELDI MV reference system
 # (to be replaced by your own local data folder)
@@ -46,11 +60,13 @@ P_max_new = 0.4
 i_time_series_new_load = 90
 
 
-# %% Read pandapower network
+# %%
+# Read pandapower network
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
-# %% Extract hourly load time series for a full year for all the load points in the CINELDI reference system
+# %%
+# Extract hourly load time series for a full year for all the load points in the CINELDI reference system
 # (this code is made available for solving task 3)
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
