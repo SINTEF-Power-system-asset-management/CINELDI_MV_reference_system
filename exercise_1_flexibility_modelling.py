@@ -64,8 +64,8 @@ def make_load_profile_ewh(time_steps,P,T,S,T_a,C,R,T_min,T_max,t_act,S_act):
         T_prev = T
         S_prev = S
 
-        # Solve differential equation for the change of temperature for the next time step
-        T = T_a - exp(-(1/60)/(C*R))*(T_a + P_m * R * S_prev  - T_prev) + P_m * R * S_prev 
+        # Find the change of temperature for the next time step
+        T = (T_prev - T_a - P_m * R * S_prev) * exp(-(1/60)/(C*R)) + T_a + P_m * R * S_prev 
 
         if (T <= T_min) & (S_prev == 0):
             # Turn EWH on if the temperature becomes too low
