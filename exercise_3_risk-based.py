@@ -8,6 +8,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: cineldi-mv-reference-system (3.14.x)
+#     language: python
+#     name: python3
 # ---
 
 # %% [markdown]
@@ -16,7 +20,8 @@
 # Intro script for Exercise 3 in specialization course module 
 # "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
 
-# %% Dependencies
+
+# %%
 # Dependencies
 
 import os
@@ -27,7 +32,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 
-# %% Define input data
+# %%
 # Define input data
 
 # Location of (processed) data set for CINELDI MV reference system
@@ -54,12 +59,12 @@ data_comp_rel.set_index(keys = 'main_type', drop = True, inplace = True)
 data_load_point = pd.read_csv(filename_load_point, delimiter=';')
 data_load_point.set_index(keys = 'bus_i', drop = True, inplace = True)
 
-# %% Read pandapower network
+# %%
 # Read pandapower network
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
-# %% Set up hourly normalized load time series for a representative day
+# %%
 # Set up hourly normalized load time series for a representative day
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
