@@ -1,14 +1,23 @@
-"""
-Created on 2026-09-05
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: title,-all
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+# ---
 
-@author: ivespe
-
-Intro script for Exercise 3 ("Risk-based grid operation") in specialization course module 
-"Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
-
-"""
+# %% [markdown]
+# ## Script for Exercise 3 ("Risk-based grid operation") 
+#
+# Intro script for Exercise 3 in specialization course module 
+# "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
 
 # %% Dependencies
+# Dependencies
 
 import os
 import pandas as pd
@@ -19,6 +28,7 @@ import matplotlib as mpl
 import numpy as np
 
 # %% Define input data
+# Define input data
 
 # Location of (processed) data set for CINELDI MV reference system
 # (to be replaced by your own local data folder)
@@ -45,10 +55,12 @@ data_load_point = pd.read_csv(filename_load_point, delimiter=';')
 data_load_point.set_index(keys = 'bus_i', drop = True, inplace = True)
 
 # %% Read pandapower network
+# Read pandapower network
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
 # %% Set up hourly normalized load time series for a representative day
+# Set up hourly normalized load time series for a representative day
 
 load_profiles = lp.load_profiles(filename_load_data_fullpath)
 
