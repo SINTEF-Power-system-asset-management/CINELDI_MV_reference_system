@@ -1,28 +1,39 @@
 # -*- coding: utf-8 -*-
-"""
-Created on 2023-10-10
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: title,-all
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: cineldi-mv-reference-system (3.14.x)
+#     language: python
+#     name: python3
+# ---
 
-@author: ivespe
+# %% [markdown]
+#
+# ## Script for Exercise 4 ("Battery energy storage system in the grid vs. grid investments") 
+#
+# Intro script for Exercise 4 in specialization course module 
+# "Flexibility in power grid operation and planning" at NTNU (TET4565/TET4575) 
 
-Intro script for Exercise 4 ("Battery energy storage system in the grid vs. grid investments") 
-in specialization course module "Flexibility in power grid operation and planning" 
-at NTNU (TET4565/TET4575) 
 
-"""
-
-
-# %% Dependencies
+# %%
+# Dependencies
 
 import pandas as pd
 import os
 import load_profiles as lp
 import pandapower_read_csv as ppcsv
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
 
 
-# %% Define input data
+# %%
+# Define input data
 
 # Location of (processed) data set for CINELDI MV reference system
 # (to be replaced by your own local data folder)
@@ -56,7 +67,8 @@ data_load_point = pd.read_csv(filename_load_point, delimiter=';')
 data_load_point.set_index(keys = 'bus_i', drop = True, inplace = True)
 
 
-# %% Read pandapower network
+# %%
+# Read pandapower network
 
 net = ppcsv.read_net_from_csv(path_data_set, baseMVA=10)
 
@@ -78,7 +90,8 @@ profiles_mapped = load_profiles.map_rel_load_profiles(filename_load_mapping_full
 load_time_series_mapped = profiles_mapped.mul(net.load['p_mw'])
 
 
-# %% Aggregate the load demand in the area
+# %%
+# Aggregate the load demand in the area
 
 # Aggregated load time series for the subset of load buses
 load_time_series_subset = load_time_series_mapped[bus_i_subset] * scaling_factor
